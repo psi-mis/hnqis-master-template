@@ -1,0 +1,15 @@
+<input type="button" value="download as XLSX" onclick="download('xlsx')" />
+<input type="button" value="download as PDF" onclick="download('pdf')" />
+<script>
+  function download(type) {
+    google.script.run
+      .withSuccessHandler(({ data, filename }) => {
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.download = filename;
+        a.href = data;
+        a.click();
+      })
+      .createDataUrl(type);
+  }
+</script>

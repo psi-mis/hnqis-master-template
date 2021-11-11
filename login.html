@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body onload="resetForm();">
+	<form>
+		<table> 
+			<tr>
+				<td>Username</td>
+				<td> <input type="text" id="uname"/> </td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" id="upass" /> </td>
+			</tr>
+            <tr>
+               <td></td>
+				<td>
+					<input id="loginBtn" type="button" value="Login" onclick="handleFormSubmit()" >
+					<input id="cancelBtn" type="button" value="Cancel"
+						onclick="google.script.host.close();" />
+				</td>
+			</tr>
+            </table>
+	</form>
+  </body>
+</html>
+
+
+<script>
+
+function successFun()
+{
+   google.script.host.close();
+}
+
+
+function handleFormSubmit() {
+    var uname = document.getElementById("uname").value;
+	var upass = document.getElementById("upass").value;
+    var dataURL = document.getElementById("dataURL").value;
+    google.script.run.callLogin(uname, upass, dataURL );
+        
+	/* disableForm( true );
+
+	var uname = document.getElementById("uname").value;
+	var upass = document.getElementById("upass").value;
+    
+	if( uname == "" || upass == "" )
+	{
+		disableForm( false );
+		alert( "Please enter username/password" );
+	}
+	else
+	{
+        var dataURL = document.getElementById("dataURL").value;
+        google.script.run.withSuccessHandler(successFun).callLogin(uname, upass, dataURL );
+	}
+	
+	return false; */
+	  
+}
+
+function disableForm( disabled )
+{
+	document.getElementById("uname").disabled = disabled;
+	document.getElementById("upass").disabled = disabled;
+	document.getElementById("loginBtn").disabled = disabled;
+	document.getElementById("cancelBtn").disabled = disabled;
+}
+      
+</script>
