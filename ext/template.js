@@ -95,7 +95,7 @@ function generateTemplate(){
     return v1[11] - v2[11];
   });
 
-  // filterout the blanks
+  // filter out rows with blank Qorders 
   template = template.filter(function(v){
     if (v[11] === ""){
       return false;
