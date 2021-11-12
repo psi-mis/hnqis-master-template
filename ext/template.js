@@ -728,19 +728,20 @@ function reTransformQuestionTypes(data){
 
 function transformQuestionTypes(data){
   let questionTypes = data.map(function(v){
-    return v[7];
+    return [v[7],v[15]];
   });
+  
 
-  // transform
+  // transform questionTypes taking consideration of the composite score questions
   questionTypes = questionTypes.map(function(v){
-    if (v === "02 INT"){
+    if (v[0] === "02 INT" && v[1] === "COMPOSITE_SCORE"){
       return "93 Compositive_Score";
-    } else if (v === "RADIO_GROUP_HORIZONTAL"){
+    } else if (v[0] === "RADIO_GROUP_HORIZONTAL"){
       return "08 RADIO_HORIZONTAL";
-    } else if (v === "RADIO_GROUP_VERTICAL"){
+    } else if (v[0] === "RADIO_GROUP_VERTICAL"){
       return "09 RADIO_VERTICAL";
     } else {
-      return v;
+      return v[0];
     }
   });
 
@@ -788,6 +789,7 @@ function renameParentChildRelations(dt){
   parentIds = parentIds.slice(1);
   parentIds = parentIds.filter(onlyUnique);
   parentIds = parentIds.filter(hasValue);
+
 
   // map Parent Ids
   let parentResult = new Array(dt.length);
